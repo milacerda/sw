@@ -18,16 +18,24 @@ use Illuminate\Http\Request;
 // });
 
 
-Route::group(array('prefix' => '/'), function () {
-//Route::middleware('auth:api')->group(function () {
+// // Route::group(array('prefix' => '/'), function () {
+// Route::middleware('auth:api')->group(function () {
 
-  Route::get('/', function () {
-      return response()->json(['message' => 'SW API', 'status' => 'Connected']);
-  });
+//   Route::get('/', function () {
+//       return response()->json(['message' => 'SW API', 'status' => 'Connected']);
+//   });
 
-  Route::resource('planets', 'PlanetsController');
-});
+//   Route::resource('planets', 'PlanetsController');
+// });
 
-Route::get('/', function () {
-    return redirect('api');
+// Route::get('/', function () {
+//     return redirect('api');
+// });
+
+Route::post('login', 'API\UserController@login');
+
+Route::post('register', 'API\UserController@register');
+
+Route::group(['middleware' => 'auth:api'], function(){
+    Route::post('details', 'API\UserController@details');
 });
