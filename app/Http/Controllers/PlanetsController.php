@@ -87,6 +87,9 @@ class PlanetsController extends Controller
         }
 
         $planet->delete();
+        return response()->json([
+                'message'   => 'Planeta excluído com sucesso',
+            ], 204);
     }
 
 }
