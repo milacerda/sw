@@ -4,11 +4,13 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Planet;
+use App\Http\Middleware\CheckApiToken;
 
 class PlanetsController extends Controller
 {
     public function __construct() {
-        $this->middleware('auth', ['except' => ['index', 'show']]);
+        //$this->middleware('auth', ['except' => ['index', 'show']]);
+        $this->middleware(CheckApiToken::class, ['only' => 'index']);
     }
     
     public function index()
@@ -17,9 +19,13 @@ class PlanetsController extends Controller
         return response()->json($planets);
     }
 
-    public function show($id)
+    public function show($parameter)
     {
-        $planet = Planet::find($id);
+        if(is_int($parameter)){
+            $planet = Planet::find($parameter);
+        } else {
+            $planet = Planet::where('nome', $parameter)->get();
+        }
 
         if(!$planet) {
             return response()->json([

@@ -13,29 +13,14 @@ use Illuminate\Http\Request;
 |
 */
 
-// Route::middleware('auth:api')->get('/user', function (Request $request) {
-//     return $request->user();
-// });
-
-
-// // Route::group(array('prefix' => '/'), function () {
-// Route::middleware('auth:api')->group(function () {
-
-//   Route::get('/', function () {
-//       return response()->json(['message' => 'SW API', 'status' => 'Connected']);
-//   });
-
-//   Route::resource('planets', 'PlanetsController');
-// });
-
-// Route::get('/', function () {
-//     return redirect('api');
-// });
-
 Route::post('login', 'API\UserController@login');
 
 Route::post('register', 'API\UserController@register');
 
 Route::group(['middleware' => 'auth:api'], function(){
-    Route::post('details', 'API\UserController@details');
+    Route::get('/', function () {
+      return response()->json(['message' => 'SW API', 'status' => 'Connected']);
+    });
+
+    Route::resource('planets', 'PlanetsController');
 });
