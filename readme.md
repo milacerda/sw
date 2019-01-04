@@ -1,4 +1,4 @@
-<p align="center">Star Wars - API</p>
+<h1 align="center">Star Wars - API</h1>
 
 ## Requisitos
 
