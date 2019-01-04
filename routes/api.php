@@ -21,5 +21,4 @@ Route::group(['middleware' => 'auth:api'], function(){
     });
 
     Route::resource('planets', 'PlanetsController');
-    Route::get('movies', 'PlanetsController@getMovies')->name('movies');
 });
