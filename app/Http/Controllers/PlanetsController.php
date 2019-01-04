@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Planet;
+use GuzzleHttp\Client;
 
 class PlanetsController extends Controller
 {
@@ -27,7 +28,7 @@ class PlanetsController extends Controller
 
         if(!$planet) {
             return response()->json([
-                'message'   => 'Planet not found',
+                'message'   => 'Planeta não encontrado',
             ], 404);
         }
 
@@ -38,9 +39,25 @@ class PlanetsController extends Controller
     {
         $planet = new Planet();
         $planet->fill($request->all());
+        $filmes = $this->getMovies($planet->nome);
+        $planet->filmes = $filmes;
         $planet->save();
-
         return response()->json($planet, 201);
+    }
+
+    public function getMovies($planet)
+    {
+        $client = new Client();
+        $res = $client->get('https://swapi.co/api/planets/?search='.$planet);
+        
+        // No caso de erro de SSL
+        // $res = $client->request('GET', 'https://swapi.co/api/planets/?search='.$planet, ['verify' => false]);
+
+        $status = $res->getStatusCode();
+        if($status == 200){
+            $data = json_decode($res->getBody(), true);
+            return count($data['results'][0]['films']);
+        }
     }
 
     public function update(Request $request, $id)
@@ -49,7 +66,7 @@ class PlanetsController extends Controller
 
         if(!$planet) {
             return response()->json([
-                'message'   => 'Planet not found',
+                'message'   => 'Planeta não encontrado',
             ], 404);
         }
 
@@ -65,7 +82,7 @@ class PlanetsController extends Controller
 
         if(!$planet) {
             return response()->json([
-                'message'   => 'Planet not found',
+                'message'   => 'Planeta não encontrado',
             ], 404);
         }
 

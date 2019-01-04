@@ -13,7 +13,7 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::post('login', 'UserController@login');
+Route::post('login', 'Auth\LoginController@login');
 
 Route::group(['middleware' => 'auth:api'], function(){
     Route::get('/', function () {
@@ -21,4 +21,5 @@ Route::group(['middleware' => 'auth:api'], function(){
     });
 
     Route::resource('planets', 'PlanetsController');
+    Route::get('movies', 'PlanetsController@getMovies')->name('movies');
 });
