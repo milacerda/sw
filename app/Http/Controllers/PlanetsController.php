@@ -20,7 +20,7 @@ class PlanetsController extends Controller
 
     public function show($parameter)
     {
-        if(is_int($parameter)){
+        if(is_numeric($parameter)){
             $planet = Planet::find($parameter);
         } else {
             $planet = Planet::where('nome', $parameter)->get();
@@ -54,9 +54,11 @@ class PlanetsController extends Controller
         // $res = $client->request('GET', 'https://swapi.co/api/planets/?search='.$planet, ['verify' => false]);
 
         $status = $res->getStatusCode();
-        if($status == 200){
+        if($status == 200 && !empty($data['results'][0]['films'])){
             $data = json_decode($res->getBody(), true);
             return count($data['results'][0]['films']);
+        } else {
+            return 0;
         }
     }
 
