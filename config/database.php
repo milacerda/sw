@@ -38,14 +38,14 @@ return [
             'database' => env('DB_DATABASE', database_path('database.sqlite')),
             'prefix' => '',
         ],
-
+        //mysql://b49fc11da1aac3:c9fe9b86@us-cdbr-iron-east-01.cleardb.net/heroku_aaaa8642c41e966?reconnect=true
         'mysql' => [
             'driver' => 'mysql',
-            'host' => env('DB_HOST', 'db4free.net'),
+            'host' => env('DB_HOST', 'us-cdbr-iron-east-01.cleardb.net'),
             'port' => env('DB_PORT', '3306'),
-            'database' => env('DB_DATABASE', 'starwarsapi'),
-            'username' => env('DB_USERNAME', 'sw_api'),
-            'password' => env('DB_PASSWORD', 'fjT^k28^'),
+            'database' => env('DB_DATABASE', 'heroku_aaaa8642c41e966'),
+            'username' => env('DB_USERNAME', 'b49fc11da1aac3'),
+            'password' => env('DB_PASSWORD', 'c9fe9b86'),
             'unix_socket' => env('DB_SOCKET', ''),
             'charset' => 'utf8mb4',
             'collation' => 'utf8mb4_unicode_ci',
