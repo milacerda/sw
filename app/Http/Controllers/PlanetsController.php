@@ -48,10 +48,10 @@ class PlanetsController extends Controller
     public function getMovies($planet)
     {
         $client = new Client();
-        $res = $client->get('https://swapi.co/api/planets/?search='.$planet);
+        //$res = $client->get('https://swapi.co/api/planets/?search='.$planet);
         
         // No caso de erro de SSL
-        // $res = $client->request('GET', 'https://swapi.co/api/planets/?search='.$planet, ['verify' => false]);
+        $res = $client->request('GET', 'https://swapi.co/api/planets/?search='.$planet, ['verify' => false]);
 
         $status = $res->getStatusCode();
         if($status == 200 && !empty($data['results'][0]['films'])){
